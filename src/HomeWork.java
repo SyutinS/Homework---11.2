@@ -59,7 +59,7 @@ public class HomeWork {
         return nameOs;
     }
 
-    public static int deliveryTeam(int deliveryDistance, int daysDelivery) {//calculationDaysDistance() {
+    public static int deliveryTeam(int deliveryDistance, int daysDelivery) {
         System.out.println("Задача 3");
         if (deliveryDistance < 20)
             System.out.println("Потребуется дней: " + daysDelivery);
