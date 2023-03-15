@@ -3,17 +3,10 @@ import java.util.Scanner;
 
 public class HomeWork {
     static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        HomeWork checkingYear = new HomeWork();
-        System.out.println("Задача 1");
-        System.out.println("Введите год для проверки високостности - ");
-        int year = scanner.nextInt();
-        checkingYear.definitionYear(year);
-
-        HomeWork lookingOs = new HomeWork();
-        System.out.println("Задача 2");
-        System.out.println("Введите опарационную систему iOS или Android - ");
+    public static int enteringData() {
+        return scanner.nextInt();
+    }
+    public static String checkingNameOs() {
         String nameOs = scanner.next();
         String iOs = "ios";
         String android = "android";
@@ -23,25 +16,35 @@ public class HomeWork {
         if (nameOs.equalsIgnoreCase(android)) {
             nameOs = String.valueOf(1);
         }
-        System.out.println("Введите год выпуска - ");
-        int yearOs = scanner.nextInt();
-        int currentYear = LocalDate.now().getYear();
-        lookingOs.choosingOs(Integer.parseInt(nameOs), yearOs, currentYear);
-
-        int deliveryDistance = 95;
-        int daysDelivery = 1;
-        deliveryTeam(deliveryDistance, daysDelivery);
+        return nameOs;
+    }
+    public static void main(String[] args) {
+        int year = 0;
+        definitionYear(year);
+        int nameOs = 0;
+        int yearOs = 0;
+        choosingOs(nameOs, yearOs);
+        deliveryTime();
     }
 
-    private void definitionYear(int year) {
-        if ((year / 4 % 4 == 0 && year / 100 % 100 != 0) || (year / 400 % 400 == 0)) {
+    private static void definitionYear(int year) {
+        System.out.println("Задача 1");
+        System.out.println("Введите год для проверки високостности - ");
+        year = enteringData();
+        if (year / 4 % 4 == 0 && year / 100 % 100 != 0 || year / 400 % 400 == 0) {
             System.out.println(year + " год — високосный год");
         } else {
             System.out.println(year + " год — невисокосный год");
         }
     }
 
-    public int choosingOs(int nameOs, int yearOs, int currentYear) {
+    public static void choosingOs(int nameOs, int yearOs) {
+        System.out.println("Задача 2");
+        System.out.println("Введите опарационную систему iOS или Android - ");
+        nameOs = Integer.parseInt(checkingNameOs());
+        System.out.println("Введите год выпуска - ");
+        yearOs = scanner.nextInt();
+        int currentYear = LocalDate.now().getYear();
         if (nameOs == 0) {
             if (yearOs < currentYear) {
                 System.out.println("Установите облегченную версию приложения для iOS по ссылке");
@@ -56,18 +59,22 @@ public class HomeWork {
                 System.out.println("Установите версию приложение для Android по ссылке");
             }
         }
-        return nameOs;
     }
 
-    public static int deliveryTeam(int deliveryDistance, int daysDelivery) {
+    public static int deliveryTime() {
         System.out.println("Задача 3");
+        int deliveryDistance = enteringData();
+        int daysDelivery = 1;
         if (deliveryDistance < 20)
             System.out.println("Потребуется дней: " + daysDelivery);
-        else if (deliveryDistance >= 20 && deliveryDistance < 60)
-            System.out.println("Потребуется дней: " + (daysDelivery + 1));
-        else if (deliveryDistance >= 60 && deliveryDistance <= 100)
-            System.out.println("Потребуется дней: " + (daysDelivery + 2));
+        else if (deliveryDistance < 60) {
+            daysDelivery = daysDelivery + 1;
+            System.out.println("Потребуется дней: " + daysDelivery);
+        } else if (deliveryDistance <= 100) {
+            daysDelivery = daysDelivery + 2;
+            System.out.println("Потребуется дней: " + daysDelivery);
+        }
         else System.out.println("Доставки нет !");
-        return deliveryDistance;
+        return daysDelivery;
     }
 }
